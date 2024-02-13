@@ -76,7 +76,7 @@ Short about project information here:
 
 * [![Html][html.io]][html-url]
 * [![Javascript][Javascript.io]][Javascript-url]
-* [![SpringBoot][Spring.io]][Angular-url]
+* [![SpringBoot][Spring.io]][Spring-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 
