@@ -173,7 +173,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Stephan Drawe - [@linkedin_StephanDrawe](https://www.linkedin.com/in/stephan-drawe/) - stephan763@revature.net
 Kendra Reynolds - [@linkedin_name](https://twitter.com/twitter_handle) - email@email_client.com
-Matthew Flug - [@linkedin_name](https://twitter.com/twitter_handle) - email@email_client.com
+Matthew Flug - [@linkedin_matthew-flug1](https://twitter.com/twitter_handle) - matthewbrady724@revature.net
 
 Project Link: [https://github.com/mattflug/Banking-App](https://github.com/mattflug/Banking-App)
 
