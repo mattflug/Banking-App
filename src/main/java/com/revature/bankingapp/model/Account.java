@@ -2,6 +2,7 @@ package com.revature.bankingapp.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -10,38 +11,37 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "account_id")
     private Integer id;
 
-    @Column(name = "accountNumber", nullable = false, unique = true)
+    @Column(name = "account_number", nullable = false, unique = true)
     private String accountNumber;
 
-    public enum accountType {
-        YES, NO
+    public enum AccountType {
+        CHECKING, SAVINGS
     }
     @Enumerated(EnumType.STRING)
-    @Column(name = "accountType")
-    private accountType accountType;
+    @Column(name = "account_type")
+    private AccountType accountType;
 
-    @Column(name = "currentBalance")
-    private String currentBalance;
+    @Column(name = "current_balance", scale = 4)
+    private BigDecimal currentBalance;
 
-//  1. current balance to integer?
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User accountHolder;
 
-// 2. add foriegn key here
 
     public Account() {
 
     }
 
-//    3. enum question
-//    4. add forien key below
-//    5. account type enum squigly
-    public Account(Integer id, String accountNumber, enum accountType, String currentBalance) {
+    public Account(Integer id, String accountNumber, AccountType accountType, BigDecimal currentBalance, User accountHolder) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.currentBalance = currentBalance;
+        this.accountHolder = accountHolder;
     }
 
     public Integer getId() {
@@ -60,35 +60,40 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public String getaccountType() {
+    public AccountType getAccountType() {
         return accountType;
     }
 
-    //    6. enum question here
-    public void setaccountType(enum accountType) {
+    public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
 
-    public String getCurrentBalance() {
+    public BigDecimal getCurrentBalance() {
         return currentBalance;
     }
 
-    public void setCurrentBalance(String currentBalance) {
+    public void setCurrentBalance(BigDecimal currentBalance) {
         this.currentBalance = currentBalance;
     }
 
-    //    7. set current balance string again? / 8 . add userid below (have not edited line 85 from Kendra's
+    public User getAccountHolder() {
+        return accountHolder;
+    }
+
+    public void setAccountHolder(User accountHolder) {
+        this.accountHolder = accountHolder;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Account account)) return false;
-        return isAdmin() == user.isAdmin() && Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword());
+        return Objects.equals(getId(), account.getId()) && Objects.equals(getAccountNumber(), account.getAccountNumber()) && getAccountType() == account.getAccountType() && Objects.equals(getCurrentBalance(), account.getCurrentBalance()) && Objects.equals(getAccountHolder(), account.getAccountHolder());
     }
 
-    //    9. add user id below
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAccountNumber(), getaccountType(), getCurrentBalance());
+        return Objects.hash(getId(), getAccountNumber(), getAccountType(), getCurrentBalance(), getAccountHolder());
     }
 
     @Override
@@ -96,8 +101,9 @@ public class Account {
         return "Account{" +
                 "id=" + id +
                 ", accountNumber='" + accountNumber + '\'' +
-                ", accountType='" + accountType + '\'' +
+                ", accountType=" + accountType +
                 ", currentBalance=" + currentBalance +
+                ", accountHolder=" + accountHolder +
                 '}';
     }
 }
