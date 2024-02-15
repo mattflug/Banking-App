@@ -1,5 +1,6 @@
 package com.revature.bankingapp.controller;
 
+import com.revature.bankingapp.model.Account;
 import com.revature.bankingapp.model.User;
 import com.revature.bankingapp.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,6 @@ public class UserController {
     public ResponseEntity<User> login(@RequestBody User user) {
         return ResponseEntity.ok(userService.login(user));
     }
-
 
 
 }

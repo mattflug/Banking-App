@@ -18,28 +18,29 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/users/{userId}/todos")
-    public ResponseEntity<ToDo> addToDo(@PathVariable Integer userId, @RequestBody ToDo toDo){
-        return ResponseEntity.ok(toDoService.addToDo(toDo, userId));
+    @PostMapping("/users/{userId}")
+    public ResponseEntity<Account> addToDo(@PathVariable Integer accountId, @RequestBody Account account){
+        return ResponseEntity.ok(accountService.addAccount(account, accountId));
     }
 
+//    1. work on get all accounts
     @GetMapping("todos/{toDoId}")
-    public ResponseEntity<ToDo> getToDoById(@PathVariable Integer toDoId) {
+    public ResponseEntity<Account> getToDoById(@PathVariable Integer toDoId) {
         return ResponseEntity.ok(toDoService.getToDoById(toDoId));
     }
 
     @PutMapping("todos/{toDoId}")
-    public ResponseEntity<ToDo> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
+    public ResponseEntity<Account> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
         return ResponseEntity.ok(toDoService.updateToDoById(toDoId, toDo));
     }
 
     @PutMapping("todos/{toDoId}")
-    public ResponseEntity<ToDo> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
+    public ResponseEntity<Account> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
         return ResponseEntity.ok(toDoService.updateToDoById(toDoId, toDo));
     }
 
     @PutMapping("todos/{toDoId}")
-    public ResponseEntity<ToDo> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
+    public ResponseEntity<Account> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
         return ResponseEntity.ok(toDoService.updateToDoById(toDoId, toDo));
     }
 
