@@ -1,4 +1,14 @@
 package com.revature.bankingapp.DAO;
 
-public interface UserRepository {
+import com.revature.bankingapp.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+// 1. ask about save
+    Optional<User> findByUsername(String username) ;
+    Optional<User> findByUsernameAndPassword (String username, String password);
 }
