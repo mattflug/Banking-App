@@ -11,8 +11,6 @@ public interface TransactionRepository  extends JpaRepository<Transaction, Integ
     // view To-Do's associated with the users account
     List<Transaction> findAllByCreatedBy(Account account);
 
-//    1. transaction repository save (built in)
-
-//    2. transactionrepo custom querry - do research
+//    1. transactionrepo custom querry - do research
 
 }
