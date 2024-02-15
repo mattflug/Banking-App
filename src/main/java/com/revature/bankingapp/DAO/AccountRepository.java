@@ -10,8 +10,4 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     List<Account> findAllByAccountHolder (User accountHolder);
 
-//    1. save built in, find by id built in
-
-//    2. find all built in
-//    3. delete by id built in
 }
