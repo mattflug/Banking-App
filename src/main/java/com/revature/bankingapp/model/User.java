@@ -26,6 +26,10 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "tax_id_number", nullable = false)
+    private String taxIdNumber;
+
+
     @Column(name = "is_admin")
     private boolean isAdmin;
 
@@ -35,10 +39,13 @@ public class User {
 
     }
 
-    public User(Integer id, String username, String password, boolean isAdmin) {
+    public User(Integer id, String username, String password, String firstName, String taxIdNumber, String lastName, boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.taxIdNumber = taxIdNumber;
         this.isAdmin = isAdmin;
     }
 
@@ -82,6 +89,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getTaxIdNumber() {
+        return taxIdNumber;
+    }
+
+    public void setTaxIdNumber(String taxIdNumber) {
+        this.taxIdNumber = taxIdNumber;
+    }
+
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -94,12 +109,12 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return isAdmin() == user.isAdmin() && Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName());
+        return isAdmin() == user.isAdmin() && Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getTaxIdNumber(), user.getTaxIdNumber());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getPassword(), getFirstName(), getLastName(), isAdmin());
+        return Objects.hash(getId(), getUsername(), getPassword(), getFirstName(), getLastName(), getTaxIdNumber(), isAdmin());
     }
 
     @Override
@@ -110,6 +125,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", taxIdNumber='" + taxIdNumber + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
     }

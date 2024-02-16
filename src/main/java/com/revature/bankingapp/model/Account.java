@@ -24,7 +24,7 @@ public class Account {
     @Column(name = "account_type")
     private AccountType accountType;
 
-    @Column(name = "current_balance", scale = 4)
+    @Column(name = "current_balance", precision = 13, scale = 4)
     private BigDecimal currentBalance;
 
     @ManyToOne

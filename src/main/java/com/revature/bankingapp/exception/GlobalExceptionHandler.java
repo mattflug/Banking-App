@@ -28,6 +28,17 @@ public class GlobalExceptionHandler {
         return ex.getMessage();
     }
 
+    @ExceptionHandler(InsufficientFundsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String handleInsufficientFundsException(InsufficientFundsException ex) {
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(CannotDeleteAccountException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String handleCannotDeleteAccountException(CannotDeleteAccountException ex){
+        return ex.getMessage();
+    }
 
 
 
