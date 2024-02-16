@@ -27,9 +27,9 @@ public class TransactionController {
     }
 
     @GetMapping("/transactions/{account_id}")
-    public ResponseEntity<Account> getAccountTransactionsByDate(@PathVariable Integer account_id, @RequestParam String fromDateStr, @RequestParam String toDateStr) {
+    public ResponseEntity<List<Transaction>> getAccountTransactionsByDate(@PathVariable Integer account_id, @RequestParam String fromDateStr, @RequestParam String toDateStr) {
         transactionService.getAccountTransactionsByDate(account_id, fromDateStr, toDateStr );
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(transactionService.getAccountTransactionsByDate);
     }
 
 }
