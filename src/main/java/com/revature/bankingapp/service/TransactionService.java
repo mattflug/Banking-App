@@ -23,7 +23,14 @@ public class TransactionService {
         this.accountRepository = accountRepository;
     }
 
-    public List<Transaction> getAllAccountTransactions
+    public List<Transaction> getAllAccountTransactions(Integer accountId) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new EntityNotFoundException("Account not found"));
+        return transactionRepository.findAllByAccount(account);
+
+    }
+
+
     public List<Transaction> getAccountTransactionsByDate(Integer accountId, String fromDateStr, String toDateStr) {
        accountRepository.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("Account not found"));

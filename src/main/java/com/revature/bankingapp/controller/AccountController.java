@@ -40,15 +40,16 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/users/{user_id}/accounts")
+    public ResponseEntity<List<Account>> viewCustomerAccounts(@PathVariable Integer user_id) {
+        return ResponseEntity.ok(accountService.getAccountsByAccountHolder(user_id));
+    }
+
     @DeleteMapping("/accounts/{account_id}")
     public ResponseEntity<?> deleteById(@PathVariable Integer account_id) {
         accountService.deleteByAccountId(account_id);
         return ResponseEntity.ok().build();
     }
-
-
-
-
 
 
 

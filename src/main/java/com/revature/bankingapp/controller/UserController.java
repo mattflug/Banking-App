@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -31,13 +32,12 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<Transaction>> getAllCustomers() {
-        List<User> viewAllCustomers = userService.getAllCustomers();
-        return ResponseEntity.ok(userService.getAllCustomers);
+    public ResponseEntity<List<User>> getAllCustomers() {
+        return ResponseEntity.ok(userService.getAllCustomers());
     }
 
-    @GetMapping("/users/{tax_id_number}")
-    public ResponseEntity<User> findCustomerByTaxId(@PathVariable String taxId) {
+    @GetMapping("/users/search")
+    public ResponseEntity<User> findCustomerByTaxId(@RequestParam String taxId) {
         return ResponseEntity.ok(userService.findCustomerByTaxId(taxId));
     }
 }
