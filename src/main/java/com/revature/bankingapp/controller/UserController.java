@@ -31,9 +31,9 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<Transaction>> viewAllCustomers() {
-        List<User> viewAllCustomers = userService.viewAllCustomers();
-        return ResponseEntity.ok(userService.viewAllCustomers);
+    public ResponseEntity<List<Transaction>> getAllCustomers() {
+        List<User> viewAllCustomers = userService.getAllCustomers();
+        return ResponseEntity.ok(userService.getAllCustomers);
     }
 
     @GetMapping("/users/{tax_id_number}")
