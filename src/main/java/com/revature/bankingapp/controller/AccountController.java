@@ -5,6 +5,7 @@ import com.revature.bankingapp.model.Account;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -19,34 +20,30 @@ public class AccountController {
     }
 
     @PostMapping("/accounts/{account_id}")
-    public ResponseEntity<Account> createNewAccount(@PathVariable Integer account_id, @RequestBody Account account){
-        return ResponseEntity.ok(accountService.createNewAccount(account_id, account));
-    }
-
-@GetMapping("/accounts")
-public ResponseEntity<List<Account>> getAllAccount() {
-    List<Account> getAllAccount = accountService.getAllAccount();
-    return ResponseEntity.ok(accountService.getAllAccount);
-}
-
-    @PutMapping("/accounts/{account_id}")
-    public ResponseEntity<Account> deposit(@PathVariable Integer account_id, @RequestBody Account account) {
-        return ResponseEntity.ok(accountService.deposit(account_id, account));
+    public ResponseEntity<Account> createNewAccount(@PathVariable Account newAccount, @RequestBody Integer userId){
+        return ResponseEntity.ok(accountService.createNewAccount(newAccount, userId));
     }
 
     @PutMapping("/accounts/{account_id}")
-    public ResponseEntity<Account> withdraw(@PathVariable Integer account_id, @RequestBody Account account) {
-        return ResponseEntity.ok(accountService.withdraw(account_id, account));
+    public ResponseEntity<Account> deposit(@PathVariable Integer accountId, @RequestBody BigDecimal amount) {
+        return ResponseEntity.ok(accountService.deposit(accountId, amount));
     }
 
     @PutMapping("/accounts/{account_id}")
-    public ResponseEntity<Account> transfer(@PathVariable Integer account_id, @RequestBody Account account) {
-        return ResponseEntity.ok(accountService.transfer(account_id, account));
+    public ResponseEntity<Account> withdraw(@PathVariable Integer accountId, @RequestBody BigDecimal amount) {
+        return ResponseEntity.ok(accountService.withdraw(accountId, amount));
+    }
+
+//    1. issue with three variables/ 2. used service class name for @PathVariable & @RequestBody instead of model names. not sure if i should have switched them
+//    to make the errors go away
+    @PutMapping("/accounts/{account_id}")
+    public ResponseEntity<Account> transfer(@PathVariable Integer fromAccountId, @RequestBody Integer toAccountId, @RequestBody BigDecimal amount) {
+        return ResponseEntity.ok(accountService.transfer(fromAccountId, toAccountId, amount));
     }
 
     @DeleteMapping("/accounts/{account_id}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer account_id) {
-        accountService.deleteById(account_id);
+    public ResponseEntity<?> deleteById(@PathVariable Integer accountId) {
+        accountService.deleteByAccountId(accountId);
         return ResponseEntity.ok().build();
     }
 

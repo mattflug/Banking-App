@@ -21,19 +21,14 @@ public class TransactionController {
     }
 
     @GetMapping("/transactions")
-    public ResponseEntity<List<Transaction>> viewAllTransactions() {
-        List<Account> viewAllTransactions = transactionService.viewAllTransactions();
-        return ResponseEntity.ok(transactionService.viewAllTransactions);
-    }
-
-    @PostMapping("/transactions/{transaction_id}")
-    public ResponseEntity<Account> addTransaction(@PathVariable Integer transaction_id, @RequestBody Transaction transaction){
-        return ResponseEntity.ok(transactionService.addTransaction(transaction_id, transaction));
+    public ResponseEntity<List<Transaction>> getAllAccountTransactions() {
+        List<Account> getAllAccountTransactions = transactionService.getAllAccountTransactions();
+        return ResponseEntity.ok(transactionService.getAllAccountTransactions);
     }
 
     @GetMapping("/transactions/{date}")
-    public ResponseEntity<Account> viewTransactionsByDate(@PathVariable LocalDateTime date) {
-        return ResponseEntity.ok(transactionService.viewTransactionsByDate(date));
+    public ResponseEntity<Account> getAccountTransactionsByDate(@PathVariable LocalDateTime date) {
+        return ResponseEntity.ok(transactionService.getAccountTransactionsByDate(date));
     }
 
 }
