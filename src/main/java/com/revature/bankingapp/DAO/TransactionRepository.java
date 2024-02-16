@@ -14,6 +14,8 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface TransactionRepository  extends JpaRepository<Transaction, Integer> {
 
+    List<Transaction> findAllByAccount(Account account);
+
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN .fromDate AND :toDate")
     List<Transaction> findByAccountIdAndDateBetween(
             @Param("accountId") Integer accountId,

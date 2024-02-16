@@ -20,10 +20,9 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping("/transactions")
-    public ResponseEntity<List<Transaction>> getAllAccountTransactions() {
-        List<Account> getAllAccountTransactions = transactionService.getAllAccountTransactions();
-        return ResponseEntity.ok(transactionService.getAllAccountTransactions);
+    @GetMapping("/transactions/{accountId}")
+    public ResponseEntity<List<Transaction>> getAllAccountTransactions(@PathVariable Integer accountId) {
+        return ResponseEntity.ok(transactionService.getAllAccountTransactions(accountId));
     }
 
     @GetMapping("/transactions/{date}")

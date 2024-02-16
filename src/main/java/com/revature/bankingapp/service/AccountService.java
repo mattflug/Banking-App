@@ -110,6 +110,12 @@ public class AccountService {
 
     }
 
+    public List<Account> getAccountsByAccountHolder(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found."));
+        return accountRepository.findAllByAccountHolder(user);
+    }
+
     public void deleteByAccountId(Integer accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow(() ->
                 new EntityNotFoundException("Account not found"));

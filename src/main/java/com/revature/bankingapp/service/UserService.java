@@ -7,6 +7,9 @@ import com.revature.bankingapp.model.User;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -29,6 +32,11 @@ public class UserService {
         return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword())
                 .orElseThrow(() -> new AccessDeniedException("Invalid username or password"));
     }
+
+    public List<User> getAllCustomers() {
+        return userRepository.findAllByIsAdminFalse();
+    }
+
 
     public User findCustomerByTaxId(String taxId) {
         return userRepository.findByIsAdminFalseAndTaxIdNumber(taxId)
