@@ -19,23 +19,21 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/accounts/{account_id}")
-    public ResponseEntity<Account> createNewAccount(@PathVariable Account newAccount, @RequestBody Integer userId){
-        return ResponseEntity.ok(accountService.createNewAccount(newAccount, userId));
+    @PostMapping("/accounts/{user_id}")
+    public ResponseEntity<Account> createNewAccount(@RequestBody Account newAccount, @PathVariable Integer user_id){
+        return ResponseEntity.ok(accountService.createNewAccount(newAccount, user_id));
     }
 
     @PutMapping("/accounts/{account_id}")
-    public ResponseEntity<Account> deposit(@PathVariable Integer accountId, @RequestBody BigDecimal amount) {
-        return ResponseEntity.ok(accountService.deposit(accountId, amount));
+    public ResponseEntity<Account> deposit(@PathVariable Integer account_id, @RequestBody BigDecimal amount) {
+        return ResponseEntity.ok(accountService.deposit(account_id, amount));
     }
 
     @PutMapping("/accounts/{account_id}")
-    public ResponseEntity<Account> withdraw(@PathVariable Integer accountId, @RequestBody BigDecimal amount) {
-        return ResponseEntity.ok(accountService.withdraw(accountId, amount));
+    public ResponseEntity<Account> withdraw(@PathVariable Integer account_id, @RequestBody BigDecimal amount) {
+        return ResponseEntity.ok(accountService.withdraw(account_id, amount));
     }
-
-//    1. issue with three variables/ 2. used service class name for @PathVariable & @RequestBody instead of model names. not sure if i should have switched them
-//    to make the errors go away
+    
     @PutMapping("/accounts/{account_id}")
     public ResponseEntity<Account> transfer(@PathVariable Integer fromAccountId, @RequestBody Integer toAccountId, @RequestBody BigDecimal amount) {
         accountService.transfer(fromAccountId, toAccountId, amount);
@@ -43,8 +41,8 @@ public class AccountController {
     }
 
     @DeleteMapping("/accounts/{account_id}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer accountId) {
-        accountService.deleteByAccountId(accountId);
+    public ResponseEntity<?> deleteById(@PathVariable Integer account_id) {
+        accountService.deleteByAccountId(account_id);
         return ResponseEntity.ok().build();
     }
 
