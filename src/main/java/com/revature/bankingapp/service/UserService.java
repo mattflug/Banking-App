@@ -4,6 +4,7 @@ import com.revature.bankingapp.DAO.UserRepository;
 import com.revature.bankingapp.exception.AccessDeniedException;
 import com.revature.bankingapp.exception.UsernameAlreadyExistsException;
 import com.revature.bankingapp.model.User;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,5 +29,12 @@ public class UserService {
         return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword())
                 .orElseThrow(() -> new AccessDeniedException("Invalid username or password"));
     }
-}
+
+    public User findCustomerByTaxId(String taxId) {
+        return userRepository.findByIsAdminFalseAndTaxIdNumber(taxId)
+                .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+
+        }
+    }
+
 

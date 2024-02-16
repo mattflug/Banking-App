@@ -27,10 +27,10 @@ public class Transaction {
     @Column(name = "date", nullable = false)
     private LocalDateTime date;
 
-    @Column(name = "amount", nullable = false, scale = 4)
+    @Column(name = "amount", nullable = false, precision = 13, scale = 4)
     private BigDecimal amount;
 
-    @Column(name = "balance", scale = 4)
+    @Column(name = "balance", precision = 13, scale = 4)
     private BigDecimal balance;
 
     @ManyToOne
