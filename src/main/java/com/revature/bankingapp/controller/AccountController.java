@@ -2,10 +2,10 @@ package com.revature.bankingapp.controller;
 
 import com.revature.bankingapp.service.AccountService;
 import com.revature.bankingapp.model.Account;
-import com.revature.bankingapp.service.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -18,35 +18,35 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/users/{userId}")
-    public ResponseEntity<Account> addToDo(@PathVariable Integer accountId, @RequestBody Account account){
-        return ResponseEntity.ok(accountService.addAccount(account, accountId));
+    @PostMapping("/accounts/{account_id}")
+    public ResponseEntity<Account> createNewAccount(@PathVariable Integer account_id, @RequestBody Account account){
+        return ResponseEntity.ok(accountService.createNewAccount(account_id, account));
     }
 
-//    1. work on get all accounts
-    @GetMapping("todos/{toDoId}")
-    public ResponseEntity<Account> getToDoById(@PathVariable Integer toDoId) {
-        return ResponseEntity.ok(toDoService.getToDoById(toDoId));
+@GetMapping("/accounts")
+public ResponseEntity<List<Account>> getAllAccount() {
+    List<Account> getAllAccount = accountService.getAllAccount();
+    return ResponseEntity.ok(accountService.getAllAccount);
+}
+
+    @PutMapping("/accounts/{account_id}")
+    public ResponseEntity<Account> deposit(@PathVariable Integer account_id, @RequestBody Account account) {
+        return ResponseEntity.ok(accountService.deposit(account_id, account));
     }
 
-    @PutMapping("todos/{toDoId}")
-    public ResponseEntity<Account> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
-        return ResponseEntity.ok(toDoService.updateToDoById(toDoId, toDo));
+    @PutMapping("/accounts/{account_id}")
+    public ResponseEntity<Account> withdraw(@PathVariable Integer account_id, @RequestBody Account account) {
+        return ResponseEntity.ok(accountService.withdraw(account_id, account));
     }
 
-    @PutMapping("todos/{toDoId}")
-    public ResponseEntity<Account> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
-        return ResponseEntity.ok(toDoService.updateToDoById(toDoId, toDo));
+    @PutMapping("/accounts/{account_id}")
+    public ResponseEntity<Account> transfer(@PathVariable Integer account_id, @RequestBody Account account) {
+        return ResponseEntity.ok(accountService.transfer(account_id, account));
     }
 
-    @PutMapping("todos/{toDoId}")
-    public ResponseEntity<Account> updateToDoById(@PathVariable Integer toDoId, @RequestBody ToDo toDo) {
-        return ResponseEntity.ok(toDoService.updateToDoById(toDoId, toDo));
-    }
-
-    @DeleteMapping("todos/{toDoId}")
-    public ResponseEntity<?> deleteToDoById(@PathVariable Integer toDoId) {
-        toDoService.deleteToDoById(toDoId);
+    @DeleteMapping("/accounts/{account_id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer account_id) {
+        accountService.deleteById(account_id);
         return ResponseEntity.ok().build();
     }
 

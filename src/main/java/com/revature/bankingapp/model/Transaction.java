@@ -12,7 +12,7 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "transaction_id")
     private Integer id;
 
 

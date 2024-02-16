@@ -6,6 +6,8 @@ import com.revature.bankingapp.service.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @RestController
@@ -18,16 +20,20 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    //    2. work on get all transactions
-    @GetMapping("todos/{toDoId}")
-    public ResponseEntity<Account> getToDoById(@PathVariable Integer toDoId) {
-        return ResponseEntity.ok(toDoService.getToDoById(toDoId));
+    @GetMapping("/transactions")
+    public ResponseEntity<List<Transaction>> viewAllTransactions() {
+        List<Account> viewAllTransactions = transactionService.viewAllTransactions();
+        return ResponseEntity.ok(transactionService.viewAllTransactions);
     }
 
-    //    3. work on get all transactions by date
-    @GetMapping("todos/{toDoId}")
-    public ResponseEntity<Account> getToDoById(@PathVariable Integer toDoId) {
-        return ResponseEntity.ok(toDoService.getToDoById(toDoId));
+    @PostMapping("/transactions/{transaction_id}")
+    public ResponseEntity<Account> addTransaction(@PathVariable Integer transaction_id, @RequestBody Transaction transaction){
+        return ResponseEntity.ok(transactionService.addTransaction(transaction_id, transaction));
+    }
+
+    @GetMapping("/transactions/{date}")
+    public ResponseEntity<Account> viewTransactionsByDate(@PathVariable LocalDateTime date) {
+        return ResponseEntity.ok(transactionService.viewTransactionsByDate(date));
     }
 
 }
