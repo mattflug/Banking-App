@@ -38,7 +38,8 @@ public class AccountController {
 //    to make the errors go away
     @PutMapping("/accounts/{account_id}")
     public ResponseEntity<Account> transfer(@PathVariable Integer fromAccountId, @RequestBody Integer toAccountId, @RequestBody BigDecimal amount) {
-        return ResponseEntity.ok(accountService.transfer(fromAccountId, toAccountId, amount));
+        accountService.transfer(fromAccountId, toAccountId, amount);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/accounts/{account_id}")
