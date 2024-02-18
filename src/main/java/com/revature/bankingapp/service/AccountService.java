@@ -36,7 +36,7 @@ public class AccountService {
         return Long.toString(randomNumber);
     }
 
-    public Account createNewAccount(Account newAccount, Integer userId) {
+    public Account createNewAccount(Integer userId, Account newAccount) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found."));
         newAccount.setAccountHolder(user);
@@ -46,10 +46,6 @@ public class AccountService {
         }
         newAccount.setAccountNumber(newAccountNumber);
         return accountRepository.save(newAccount);
-    }
-
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
     }
 
     @Transactional
@@ -125,6 +121,15 @@ public class AccountService {
             throw new CannotDeleteAccountException("Account balance must be zero before deletion");
             }
         }
+
+    // Method not currently using
+//    public List<Account> getAllAccounts() {
+//        return accountRepository.findAll();
+//    }
+
+
+
+
     }
 
 

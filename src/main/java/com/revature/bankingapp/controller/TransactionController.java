@@ -25,10 +25,10 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.getAllAccountTransactions(accountId));
     }
 
-    @GetMapping("/transactions/{account_id}")
+    @GetMapping("/transactions/{account_id}/filter")
     public ResponseEntity<List<Transaction>> getAccountTransactionsByDate(@PathVariable Integer account_id, @RequestParam String fromDateStr, @RequestParam String toDateStr) {
         transactionService.getAccountTransactionsByDate(account_id, fromDateStr, toDateStr );
-        return ResponseEntity.ok(transactionService.getAccountTransactionsByDate);
+        return ResponseEntity.ok(transactionService.getAccountTransactionsByDate(account_id, fromDateStr, toDateStr));
     }
 
 }
