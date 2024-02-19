@@ -1,8 +1,15 @@
 // login variable declaration:
+const url = "http://localhost:8080";
+
+const form = document.getElementById("loginForm");
+form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    loginUser();
+})
 
 const button = document.getElementById("loginButton");
-button.onclick = loginUser;
-// button.onclick = logUser;
+
+
 
 
 // test .onclick function
@@ -24,8 +31,11 @@ async function loginUser () {
     let userName = document.getElementById("inputEmail").value;
     let passWord = document.getElementById("inputPassword").value;
 
-    const res = await fetch("/login", {
+    const res = await fetch(`${url}/login`, {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
             username: userName,
             password: passWord
@@ -35,11 +45,3 @@ async function loginUser () {
     console.log(loginResponse);
 
 }
-
-// fetch("/login", {
-//   method: "POST",
-//   body: JSON.stringify({
-//     userName: userName,
-//     passWord: passWord
-//   })
-// });
