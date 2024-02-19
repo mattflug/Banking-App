@@ -28,7 +28,7 @@ const button = document.getElementById("loginButton");
 // loginUser
 async function loginUser () {
 
-    let userName = document.getElementById("inputEmail").value;
+    let userName = document.getElementById("inputUsername").value;
     let passWord = document.getElementById("inputPassword").value;
 
     const res = await fetch(`${url}/login`, {
