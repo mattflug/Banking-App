@@ -69,6 +69,9 @@ async function loginUser () {
         const loginResponse = await res.json();
         console.log(loginResponse);
         errorMessage.style.display = "none";
+        window.location.href = "userAccount.html";
+        
+
     } catch (e) {
         console.error("wrong username or password: " + e);
         console.error("wrong username or password");
