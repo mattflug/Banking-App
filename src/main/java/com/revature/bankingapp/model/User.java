@@ -26,6 +26,7 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+
     @Column(name = "tax_id_number", nullable = false)
     private String taxIdNumber;
 

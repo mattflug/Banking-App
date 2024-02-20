@@ -1,5 +1,6 @@
 package com.revature.bankingapp.controller;
 
+import com.revature.bankingapp.DTO.LoginRequest;
 import com.revature.bankingapp.model.Transaction;
 import com.revature.bankingapp.model.User;
 import com.revature.bankingapp.service.UserService;
@@ -28,8 +29,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        return ResponseEntity.ok(userService.login(user));
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
+        return ResponseEntity.ok(userService.login(username, password));
     }
 
     @GetMapping("/users")

@@ -42,7 +42,13 @@ public class UserService {
         return userRepository.findByIsAdminFalseAndTaxIdNumber(taxId)
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
 
-        }
     }
+
+    public User login(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new AccessDeniedException("Invalid username or password"));
+    }
+}
+
 
 
