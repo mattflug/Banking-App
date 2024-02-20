@@ -14,7 +14,7 @@ async function createUser () {
     let lastName = document.getElementById("inputLastName").value;
     let taxId = document.getElementById("inputTaxId").value;
     let isAdmin = document.getElementById("isAdmin").value;
-    // let errorMessage = document.getElementById("errorMessage");
+    let errorMessage = document.getElementById("errorMessage");
 
     try { 
         const res = await fetch(`${url}/register`, {
@@ -33,11 +33,13 @@ async function createUser () {
         })
         const createUserResponse = await res.json();
         console.log(createUserResponse);
-        // errorMessage.style.display = "none";
+        errorMessage.innerText = "Account Created!";
+        errorMessage.style.color = "green";
+        errorMessage.style.display = "block";
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error");
-        // errorMessage.style.display = "block";
+        errorMessage.style.display = "block";
     }
 
 }
