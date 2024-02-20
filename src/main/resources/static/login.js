@@ -1,4 +1,3 @@
-// login variable declaration:
 const url = "http://localhost:8080";
 
 const form = document.getElementById("loginForm");

@@ -26,26 +26,52 @@
           </div>
         </div>
       </nav>
-<!-- end nav bar --><!-- start page title -->
+<!-- end nav bar -->
+<!-- start page title -->
       <h1 class="d-flex justify-content-center">Create Account</h1>
       <!-- end page title -->
+
       <!-- start form -->
             <div class="d-flex justify-content-center">
-              <form class="w-50 p-3">
+              <form id="createAccount" class="w-50 p-3">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@example.com">
-                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                  <label for="inputUsername" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="inputUsername" placeholder="username">
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********">
+                  <label for="inputPassword" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="inputPassword" placeholder="********">
                 </div>
+                <div class="mb-3">
+                  <label for="inputFirstName" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="inputFirstName" placeholder="username">
+                </div>
+                <div class="mb-3">
+                  <label for="inputLastName" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="inputLastName" placeholder="username">
+                </div>
+                <div class="mb-3">
+                  <label for="inputTaxId" class="form-label">Tax ID Number</label>
+                  <input type="text" class="form-control" id="inputTaxId" placeholder="username">
+                </div>
+
+                <div class="col-auto my-1">
+                  <label class="mr-sm-2" for="isAdmin">Admin?</label>
+                  <select class="custom-select mr-sm-2" id="isAdmin">
+                    <option selected>Choose...</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                  </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Create</button>
               </form>
             </div>
       <!-- end form -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  
+    <!-- start create account js file -->
+    <script src="createAccount.js"></script>
   </body>
 </html>
