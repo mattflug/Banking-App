@@ -1,16 +1,18 @@
 const url = "http://localhost:8080";
 
-const form = document.getElementById("loginForm");
-form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    getAllAccount();
-})
+// const form = document.getElementById("loginForm");
+// form.addEventListener('submit', (e)=>{
+//     e.preventDefault();
+//     getAllAccount();
+// })
+
+const button = document.getElementById("getAllAccountButton");
+button.addEventListener('click', getAllAccount);
 
 
 async function getAllAccount () {
   
-    // let userName = document.getElementById("inputUsername").value;
-    // let passWord = document.getElementById("inputPassword").value;
+    let seeAllAccounts = document.getElementById("seeAllAccount");
     // let errorMessage = document.getElementById("errorMessage");
 
     try { 
@@ -22,6 +24,9 @@ async function getAllAccount () {
         })
         const allAccounts = await res.json();
         console.log(allAccounts);
+        let stringAllAccounts = JSON.stringify(allAccounts);
+        seeAllAccounts.innerHTML = stringAllAccounts;
+
         // errorMessage.style.display = "none";
         
 
