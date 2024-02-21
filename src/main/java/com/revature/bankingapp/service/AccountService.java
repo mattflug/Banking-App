@@ -1,6 +1,7 @@
 package com.revature.bankingapp.service;
 
 import com.revature.bankingapp.DAO.AccountRepository;
+import com.revature.bankingapp.DAO.TransactionRepository;
 import com.revature.bankingapp.DAO.UserRepository;
 import com.revature.bankingapp.exception.CannotDeleteAccountException;
 import com.revature.bankingapp.exception.InsufficientFundsException;
@@ -21,13 +22,17 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
+
+    private final TransactionRepository transactionRepository;
     private final TransactionService transactionService;
 
 
     public AccountService(AccountRepository accountRepository, UserRepository userRepository,
+                          TransactionRepository transactionRepository,
                           TransactionService transactionService) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
+        this.transactionRepository = transactionRepository;
         this.transactionService = transactionService;
     }
 
@@ -53,11 +58,12 @@ public class AccountService {
         Account account = accountRepository.findById(accountId).orElseThrow(() ->
                 new EntityNotFoundException("Account not found"));
         BigDecimal newBalance = account.getCurrentBalance().add(amount)
-                        .setScale(4, RoundingMode.HALF_UP);
+                        .setScale(2, RoundingMode.HALF_UP);
         account.setCurrentBalance(newBalance);
+        accountRepository.save(account);
         transactionService.createTransaction(account, amount,
                 Transaction.TransactionType.DEPOSIT, newBalance);
-        return accountRepository.save(account);
+        return account;
     }
 
     @Transactional
@@ -69,12 +75,12 @@ public class AccountService {
             throw new InsufficientFundsException("Insufficient funds for withdrawal");
         }
         BigDecimal newBalance = account.getCurrentBalance().subtract(amount)
-                .setScale(4, RoundingMode.HALF_UP);
+                .setScale(2, RoundingMode.HALF_UP);
         account.setCurrentBalance(newBalance);
+        accountRepository.save(account);
         transactionService.createTransaction(account, amount,
                 Transaction.TransactionType.WITHDRAWAL, newBalance);
-        return accountRepository.save(account);
-
+        return account;
     }
 
     @Transactional
@@ -89,20 +95,20 @@ public class AccountService {
         }
 
         BigDecimal reducedBalance = fromAccount.getCurrentBalance().subtract(amount)
-                .setScale(4, RoundingMode.HALF_UP);
+                .setScale(2, RoundingMode.HALF_UP);
         fromAccount.setCurrentBalance(reducedBalance);
 
         BigDecimal increasedBalance = toAccount.getCurrentBalance().add(amount)
-                .setScale(4, RoundingMode.HALF_UP);
+                .setScale(2, RoundingMode.HALF_UP);
         toAccount.setCurrentBalance(increasedBalance);
+
+        accountRepository.save(fromAccount);
+        accountRepository.save(toAccount);
 
         transactionService.createTransaction(fromAccount, amount,
                 Transaction.TransactionType.TRANSFER, reducedBalance);
         transactionService.createTransaction(toAccount, amount,
                 Transaction.TransactionType.TRANSFER, increasedBalance);
-
-        accountRepository.save(fromAccount);
-        accountRepository.save(toAccount);
 
     }
 
@@ -112,10 +118,13 @@ public class AccountService {
         return accountRepository.findAllByAccountHolder(user);
     }
 
+    @Transactional
     public void deleteByAccountId(Integer accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow(() ->
                 new EntityNotFoundException("Account not found"));
         if (account.getCurrentBalance().compareTo(BigDecimal.ZERO) == 0) {
+            List<Transaction> transactions = transactionRepository.findByAccount(account);
+            transactionRepository.deleteAll(transactions);
             accountRepository.deleteById(accountId);
         } else {
             throw new CannotDeleteAccountException("Account balance must be zero before deletion");
