@@ -16,6 +16,8 @@ public interface TransactionRepository  extends JpaRepository<Transaction, Integ
 
     List<Transaction> findAllByAccount(Account account);
 
+    List<Transaction> findByAccount(Account account);
+
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN :fromDate AND :toDate")
     List<Transaction> findByAccountIdAndDateBetween(
             @Param("accountId") Integer accountId,

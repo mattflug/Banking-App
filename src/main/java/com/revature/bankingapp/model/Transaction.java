@@ -3,6 +3,7 @@ package com.revature.bankingapp.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -33,7 +34,7 @@ public class Transaction {
     @Column(name = "balance", precision = 13, scale = 4)
     private BigDecimal balance;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -62,7 +63,7 @@ public class Transaction {
     }
 
     public BigDecimal getAmount() {
-        return amount;
+        return amount.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setAmount(BigDecimal amount) {
@@ -70,7 +71,7 @@ public class Transaction {
     }
 
     public BigDecimal getBalance() {
-        return balance;
+        return balance.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setBalance(BigDecimal balance) {

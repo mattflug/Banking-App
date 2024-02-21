@@ -1,12 +1,17 @@
 package com.revature.bankingapp.controller;
 
+import com.revature.bankingapp.DTO.DepositOrWithdrawalRequest;
+import com.revature.bankingapp.DTO.TransferRequest;
 import com.revature.bankingapp.service.AccountService;
 import com.revature.bankingapp.model.Account;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -25,18 +30,18 @@ public class AccountController {
     }
 
     @PutMapping("/accounts/{account_id}/deposit")
-    public ResponseEntity<Account> deposit(@PathVariable Integer account_id, @RequestBody BigDecimal amount) {
-        return ResponseEntity.ok(accountService.deposit(account_id, amount));
+    public ResponseEntity<Account> deposit(@PathVariable Integer account_id,  @RequestBody DepositOrWithdrawalRequest dto) {
+        return ResponseEntity.ok(accountService.deposit(account_id, dto.getAmount()));
     }
 
     @PutMapping("/accounts/{account_id}/withdraw")
-    public ResponseEntity<Account> withdraw(@PathVariable Integer account_id, @RequestBody BigDecimal amount) {
-        return ResponseEntity.ok(accountService.withdraw(account_id, amount));
+    public ResponseEntity<Account> withdraw(@PathVariable Integer account_id, @RequestBody DepositOrWithdrawalRequest dto) {
+        return ResponseEntity.ok(accountService.withdraw(account_id, dto.getAmount()));
     }
     
     @PutMapping("/accounts/{account_id}/transfer")
-    public ResponseEntity<Account> transfer(@PathVariable Integer fromAccountId, @RequestBody Integer toAccountId, @RequestBody BigDecimal amount) {
-        accountService.transfer(fromAccountId, toAccountId, amount);
+    public ResponseEntity<Account> transfer(@PathVariable Integer account_id, @RequestBody TransferRequest dto) {
+        accountService.transfer(account_id, dto.getToAccountId(), dto.getAmount());
         return ResponseEntity.ok().build();
     }
 

@@ -3,6 +3,7 @@ package com.revature.bankingapp.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 @Entity
@@ -69,7 +70,7 @@ public class Account {
     }
 
     public BigDecimal getCurrentBalance() {
-        return currentBalance;
+        return currentBalance.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setCurrentBalance(BigDecimal currentBalance) {
