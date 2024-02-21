@@ -7,20 +7,28 @@ function populateFlavors(accounts) {
   accountContainer.innerHTML = "";
 
   for (account of accounts) {
-    let iDiv = document.createElement("div");
+    let bryDiv = document.createElement("div");
 
-    iDiv.innerHTML = `
-            <h2> Account Number: ${account.accountNumber} </h2>
-            <p> Scoops available: ${account.accountType} </p>
-            <p> Dairy Free: ${account.dairyFree ? "Yes" : "No"} </p>
+      bryDiv.innerHTML = `
+            <form>
+            <div class="mb-3">
+            <h2 for="savingsAccount" class="form-label">Account Type: ${account.accountType}</h2>
+              <label for="savingsAccount" class="form-label">Account Balance:</label>
+              <label for="savingsAccount" class="form-label">${account.currentBalance}</label>
+            </div>
+            <div class="mb-3">
+              <input type="number" class="form-control" id="savingsAccount" placeholder="please input amount in $">
+            </div>
+            <button type="submit" class="btn btn-primary">Withdraw</button>
+            <button type="submit" class="btn btn-primary">Deposit</button>
+
+            <br>
+            <br>
+            <br>
+        </form>
+            
         `;
-
-    iDiv.setAttribute("class", "ice-cream");
-    iDiv.setAttribute("id", `${account.flavor}`);
-
-    iDiv.setAttribute("onclick", "updateStyling(event)");
-
-    accountContainer.append(iDiv);
+    accountContainer.append(bryDiv);
   }
 }
 
