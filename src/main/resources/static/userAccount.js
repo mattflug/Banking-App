@@ -12,7 +12,7 @@ function populateFlavors(accounts) {
       bryDiv.innerHTML = `
             <form>
             <div class="mb-3">
-            <h2 for="savingsAccount" class="form-label">Account Type: ${account.accountType}</h2>
+            <h2 for="savingsAccount" class="form-label">${account.accountType}</h2>
               <label for="savingsAccount" class="form-label">Account Balance:</label>
               <label for="savingsAccount" class="form-label">${account.currentBalance}</label>
             </div>
@@ -32,7 +32,8 @@ function populateFlavors(accounts) {
   }
 }
 
-  // Get to user accounts
+// Get to user accounts, need to edit this to take in the user who's
+  // logged in
 (async () => {
   let data = await fetch("http://localhost:8080/users/1/accounts");
   let res = await data.json(); // Different syntax, same thing as before
