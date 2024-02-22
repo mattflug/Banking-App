@@ -1,6 +1,6 @@
 let accounts = [];
 
-let accountContainer = document.getElementById("IceCreamContainer");
+let accountContainer = document.getElementById("userContainer");
 console.log(accountContainer);
 
 function populateFlavors(accounts) {
@@ -35,9 +35,11 @@ function populateFlavors(accounts) {
 // Get to user accounts, need to edit this to take in the user who's
   // logged in
 (async () => {
-  let data = await fetch("http://localhost:8080/users/1/accounts");
+  let data = await fetch(`http://localhost:8080/users/${sessionStorage.getItem("id")}/accounts`);
   let res = await data.json(); // Different syntax, same thing as before
   console.log(res);
   accounts = res;
   populateFlavors(accounts);
 })();
+
+// sessionStorage.removeItem("id");

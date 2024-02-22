@@ -25,6 +25,7 @@ async function loginUser () {
         })
         const loginResponse = await res.json();
         console.log(loginResponse);
+        sessionStorage.setItem("id", loginResponse.id);
         errorMessage.style.display = "none";
         window.location.href = "userAccount.html";
         
