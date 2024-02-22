@@ -14,6 +14,7 @@ clearButton.addEventListener('click', clearAccountList);
 function clearAccountList() {
     let seeAllAccounts = document.getElementById("seeAllAccount");
     seeAllAccounts.innerHTML = "";
+    console.log("function fired")
 }
 
 
