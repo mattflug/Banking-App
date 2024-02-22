@@ -66,7 +66,7 @@ Second Spring Project
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 <!-- TODO add project info -->
-Short about project information here: 
+This fullstack project serves as a showcase for our proficiency in both static frontend development and backend skills utilizing Spring, Java, and Microsoft SQL Server.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -131,9 +131,18 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ## Roadmap
 
 - [x] Add 'README' file
-- [ ] Create models for Accounts, Users, and Transactions
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [x] Create models for Accounts, Users, and Transactions
+- [x] Finish backend controllers for Accounts, Users, and Transactions
+- [x] Finish backend services for Accounts, Users, and Transactions
+- [x] Finish backend DAO for Accounts, Users, and Transactions
+- [x] Finish frontend Login page
+    - [x] Add JS functionality and http request handling
+- [x] Finish frontend Create Account page
+    - [x] Add JS functionality and http request handling
+- [x] Finish frontend Admin page
+    - [x] Add JS functionality and http request handling
+- [] Finish frontend Account page
+    - [] Add JS functionality and http request handling
 
 See the [open issues](https://github.com/mattflug/Banking-App/issues) for a full list of proposed features (and known issues).
 

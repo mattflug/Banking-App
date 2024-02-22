@@ -60,9 +60,15 @@ async function searchByTaxId () {
   
     let seeTaxAccounts = document.getElementById("seeTaxAccount");
     let taxErrorMessage = document.getElementById("taxErrorMessage");
+    let taxId = document.getElementById("inputTaxId").value;
+
+    if(!taxId){
+        taxErrorMessage.style.display = "block";
+        return;
+    }
 
     try { 
-        const res = await fetch(`${url}/users/search`, {
+        const res = await fetch(`${url}/users/search?taxId=${taxId}`, {
             method: "Get",
             headers: {
                 "Content-Type": "application/json"
@@ -71,6 +77,7 @@ async function searchByTaxId () {
         const accounts = await res.json();
         console.log(accounts);
         let stringAccounts = JSON.stringify(accounts);
+        seeTaxAccounts.innerHTML = "";
         seeTaxAccounts.innerHTML = stringAccounts;
 
         taxErrorMessage.style.display = "none";
@@ -78,7 +85,8 @@ async function searchByTaxId () {
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error!");
-        errorMessage.style.display = "block";
+        seeTaxAccounts.innerHTML = "";
+        taxErrorMessage.style.display = "block";
     }
 
 }

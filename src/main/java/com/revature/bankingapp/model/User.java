@@ -27,7 +27,7 @@ public class User {
     private String lastName;
 
 
-    @Column(name = "tax_id_number", nullable = false)
+    @Column(name = "tax_id_number", nullable = false, unique = true)
     private String taxIdNumber;
 
 
