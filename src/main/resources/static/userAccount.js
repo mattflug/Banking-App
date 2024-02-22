@@ -13,8 +13,8 @@ function populateAccounts(accounts) {
     let bryDiv = document.createElement("div");
 
       bryDiv.innerHTML = `
-            <form>
-            <div class="mb-3">
+          <a href="userTransactions.html?accountId=${account.id}" class="text-decoration-none">
+            <div class="card">
             <h2 for="savingsAccount" class="form-label">${account.accountType}</h2>
               <label for="savingsAccount" class="form-label">Account Balance:</label>
               <label for="savingsAccount" class="form-label">${account.currentBalance}</label>
@@ -24,11 +24,9 @@ function populateAccounts(accounts) {
             </div>
             <button type="submit" class="btn btn-primary">Withdraw</button>
             <button type="submit" class="btn btn-primary">Deposit</button>
+            <div>
 
-            <br>
-            <br>
-            <br>
-        </form>
+        </a>
             
         `;
     accountContainer.append(bryDiv);
@@ -43,7 +41,7 @@ if (sessionStorage){
   let res = await data.json(); // Different syntax, same thing as before
   console.log(res);
   accounts = res;
-  populateFlavors(accounts);
+  populateAccounts(accounts);
 })();
 }else{
   window.location.href = "login.html";
