@@ -15,10 +15,17 @@ const clearButton = document.getElementById("clearAllAccount");
 clearButton.addEventListener('click', clearAccountList);
 
 // search By Tax form
-const form = document.getElementById("searchByTaxForm");
-form.addEventListener('submit', (e)=>{
+const taxForm = document.getElementById("searchByTaxForm");
+taxForm.addEventListener('submit', (e)=>{
     e.preventDefault();
     searchByTaxId();
+})
+
+// Create Bank Account for User form
+const bankAccountForm = document.getElementById("createBankAccountForm");
+bankAccountForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    createBankAccount();
 })
 
 
@@ -87,6 +94,50 @@ async function searchByTaxId () {
         console.error("Error!");
         seeTaxAccounts.innerHTML = "";
         taxErrorMessage.style.display = "block";
+    }
+
+}
+
+// Create Bank Account for User function
+async function createBankAccount () {
+  
+    // let seeTaxAccounts = document.getElementById("seeTaxAccount");
+    let accountType = document.getElementById("accountType").value;
+    let accountBalance = document.getElementById("accountBalance").value;
+    let userErrorMessage = document.getElementById("userErrorMessage");
+    let userId = document.getElementById("inputUserId").value;
+
+    if(!userId){
+        userErrorMessage.style.display = "block";
+        return;
+    }
+
+    // "/accounts/{user_id}"
+
+    try { 
+        const res = await fetch(`${url}/accounts/${userId}`, {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                accountType: accountType,
+                currentBalance: accountBalance
+            })
+        })
+        const accounts = await res.json();
+        console.log(accounts);
+        let stringAccounts = JSON.stringify(accounts);
+        // seeTaxAccounts.innerHTML = "";
+        // seeTaxAccounts.innerHTML = stringAccounts;
+
+        userErrorMessage.style.display = "none";
+        
+    } catch (e) {
+        console.error("Error: " + e);
+        console.error("Error!");
+        // seeTaxAccounts.innerHTML = "";
+        userErrorMessage.style.display = "block";
     }
 
 }

@@ -49,7 +49,7 @@
 <div class="d-flex justify-content-center" id="seeAllAccount"></div>
 <br>
 <!-- end account views -->
-<!-- start form -->
+<!-- start see by tax id form -->
 <div class="d-flex justify-content-center">
   <form id="searchByTaxForm" class="w-50 p-3">
     <div class="mb-3">
@@ -64,7 +64,33 @@
 <br>
 <div class="d-flex justify-content-center" id="seeTaxAccount"></div>
 <br>
-<!-- end form -->
+<!-- end see by tax id form -->
+<!-- start create bank account for user form -->
+<div class="d-flex justify-content-center">
+  <form id="createBankAccountForm" class="w-50 p-3">
+    <div class="mb-3">
+      <label for="inputUserId" class="form-label">Input User Id</label>
+      <input type="text" class="form-control" id="inputUserId" placeholder="User ID">
+    </div>
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="accountType">Account Type</label>
+      <select class="custom-select mr-sm-2" id="accountType">
+        <option selected>Choose Account Type...</option>
+        <option value="CHECKING">Checking</option>
+        <option value="SAVINGS">Savings</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="accountBalance" class="form-label">Account Starting Balance</label>
+      <input type="number" class="form-control" id="accountBalance" placeholder="Input Starting Balance">
+    </div>
+    <p id="userErrorMessage" style="color: red; display: none;">Error: Customer not found.</p>
+    <br>
+    <button id="createBankAccountButton" type="submit" class="btn btn-primary">Create</button>
+  </form>
+</div>
+<br>
+<!-- end create bank account for user form -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="admin.js"></script>
