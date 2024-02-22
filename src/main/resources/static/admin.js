@@ -109,14 +109,26 @@ async function createBankAccount () {
 
     if(!userId){
         userErrorMessage.style.display = "block";
+        userErrorMessage.innerHTML = "Please enter a User ID.";
         return;
     }
 
-    // "/accounts/{user_id}"
+    if(!accountType){
+        userErrorMessage.style.display = "block";
+        userErrorMessage.innerHTML = "Please enter a Account Type.";
+        console.log(accountType);
+        return;
+    }
+
+    if(!accountBalance){
+        userErrorMessage.style.display = "block";
+        userErrorMessage.innerHTML = "Please enter a Account Balance.";
+        return;
+    }
 
     try { 
         const res = await fetch(`${url}/accounts/${userId}`, {
-            method: "Post",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -138,6 +150,7 @@ async function createBankAccount () {
         console.error("Error!");
         // seeTaxAccounts.innerHTML = "";
         userErrorMessage.style.display = "block";
+        userErrorMessage.innerHTML = "User does not exists";
     }
 
 }
