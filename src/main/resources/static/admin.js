@@ -14,9 +14,12 @@ button.addEventListener('click', getAllAccount);
 const clearButton = document.getElementById("clearAllAccount");
 clearButton.addEventListener('click', clearAccountList);
 
-// searchByTaxButton
-const searchByTaxButton = document.getElementById("searchByTaxButton");
-searchByTaxButton.addEventListener('click', searchByTaxId);
+// search By Tax form
+const form = document.getElementById("searchByTaxForm");
+form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    searchByTaxId();
+})
 
 
 // clear account view function
@@ -72,7 +75,6 @@ async function searchByTaxId () {
 
         taxErrorMessage.style.display = "none";
         
-
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error!");
