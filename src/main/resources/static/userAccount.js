@@ -17,18 +17,15 @@ function populateAccounts(accounts) {
       bryDiv.innerHTML = `
             <div>
             <div class="mb-3">
-            <h2 for="savingsAccount" class="form-label">${account.accountType} Account, ID: ${account.id}</h2>
+            <h2 for="savingsAccount" class="form-label">${account.accountType}</h2>
               <label for="savingsAccount" class="form-label">Account Balance:</label>
               <label for="savingsAccount" class="form-label">${account.currentBalance}</label>
             </div>
             <div class="mb-3">
-              <input type="number" class="form-control" id="input-${account.id}" placeholder="please input amount in $">
+              <input type="number" class="form-control" id="account" placeholder="please input amount in $">
             </div>
-            <button type="submit" class="btn btn-primary" onclick="withdraw(${account.id})">Withdraw</button>
-            <button type="submit" class="btn btn-primary" onclick="deposit(${account.id})">Deposit</button>
-            <br>
-            <p id="ErrorMessage-${account.id}" style="color: red; display: none;">Error:</p>
-            <br>
+            <button type="submit" class="btn btn-primary" id="withdraw">Withdraw</button>
+            <button type="submit" class="btn btn-primary" id="deposit">Deposit</button>
 
             <br>
             <br>
@@ -40,15 +37,15 @@ function populateAccounts(accounts) {
   }
 }
 
-
-//on load userAccount page for currently logged in user
+// Get to user accounts, need to edit this to take in the user who's
+  // logged in
 if (sessionStorage){
   (async () => {
   let data = await fetch(`http://localhost:8080/users/${sessionStorage.getItem("id")}/accounts`);
   let res = await data.json(); // Different syntax, same thing as before
   console.log(res);
   accounts = res;
-  populateAccounts(accounts);
+  populateFlavors(accounts);
 })();
 }else{
   window.location.href = "login.html";
@@ -59,89 +56,43 @@ function logoutFunction(){
 }
 
 // Withdraw function
-async function withdraw (id) {
-
-    console.log(id);
+async function withdraw () {
   
-    let amount = document.getElementById("input-" + id).value;
+    // let seeTaxAccounts = document.getElementById("seeTaxAccount");
+    // let userErrorMessage = document.getElementById("userErrorMessage");
+    // let userId = document.getElementById("inputUserId").value;
 
-    console.log(amount);
-
-    let errorMessage = document.getElementById("ErrorMessage-" + id);
-
-
-    if(!amount){
-        errorMessage.style.display = "block";
-        errorMessage.innerHTML = "Please enter an amount.";
-        return;
-    }
+    // if(!userId){
+    //     userErrorMessage.style.display = "block";
+    //     userErrorMessage.innerHTML = "Please enter a User ID.";
+    //     return;
+    // }
 
     try { 
-        const res = await fetch(`${url}/accounts/${id}/withdraw`, {
-          method: "PUT",
+        const res = await fetch(`${url}/accounts/${account.id}/withdraw`, {
+          method: "Put",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            amount: amount
+            accountType: accountType,
+            currentBalance: accountBalance,
           }),
         });
-        const response = await res.json();
-        console.log(response);
-        let jsonResponse = JSON.stringify(response);
-        console.log(jsonResponse);
-        errorMessage.style.display = "none";
-        window.location.href = "userAccount.html";
+        const accounts = await res.json();
+        console.log(accounts);
+        let stringAccounts = JSON.stringify(accounts);
+        // seeTaxAccounts.innerHTML = "";
+        // seeTaxAccounts.innerHTML = stringAccounts;
+
+        userErrorMessage.style.display = "none";
         
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error!");
-        errorMessage.style.display = "block";
-        errorMessage.innerHTML = "Insufficient funds";
+        // seeTaxAccounts.innerHTML = "";
+        userErrorMessage.style.display = "block";
+        userErrorMessage.innerHTML = "User does not exists";
     }
-
-}
-
-// Deposit function
-async function deposit (id) {
-
-  console.log(id);
-
-  let amount = document.getElementById("input-" + id).value;
-
-  console.log(amount);
-
-  let errorMessage = document.getElementById("ErrorMessage-" + id);
-
-
-  if(!amount){
-      errorMessage.style.display = "block";
-      errorMessage.innerHTML = "Please enter an amount.";
-      return;
-  }
-
-  try { 
-      const res = await fetch(`${url}/accounts/${id}/deposit`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: amount
-        }),
-      });
-      const response = await res.json();
-      console.log(response);
-      let jsonResponse = JSON.stringify(response);
-      console.log(jsonResponse);
-      errorMessage.style.display = "none";
-      window.location.href = "userAccount.html";
-      
-  } catch (e) {
-      console.error("Error: " + e);
-      console.error("Error!");
-      errorMessage.style.display = "block";
-      errorMessage.innerHTML = "Insufficient funds";
-  }
 
 }
