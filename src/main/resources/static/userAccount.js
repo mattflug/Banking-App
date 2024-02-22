@@ -15,7 +15,7 @@ function populateFlavors(accounts) {
       bryDiv.innerHTML = `
             <form>
             <div class="mb-3">
-            <h2 for="savingsAccount" class="form-label">${account.accountType}</h2>
+            <h2 for="savingsAccount" class="form-label">${account.accountType} Account, ID: ${account.id}</h2>
               <label for="savingsAccount" class="form-label">Account Balance:</label>
               <label for="savingsAccount" class="form-label">${account.currentBalance}</label>
             </div>
