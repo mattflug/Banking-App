@@ -16,6 +16,42 @@ async function createUser () {
     let isAdmin = document.getElementById("isAdmin").value;
     let errorMessage = document.getElementById("errorMessage");
 
+    if(!userName){
+        errorMessage.style.display = "block";
+        errorMessage.style.color = "red";
+        errorMessage.innerHTML = "Please enter a Username.";
+        return;
+    }
+
+    if(!passWord){
+        errorMessage.style.display = "block";
+        errorMessage.style.color = "red";
+        errorMessage.innerHTML = "Please enter a password.";
+        return;
+    }
+
+    if(!firstName){
+        errorMessage.style.display = "block";
+        errorMessage.style.color = "red";
+        errorMessage.innerHTML = "Please enter a first name.";
+        return;
+    }
+
+    if(!lastName){
+        errorMessage.style.display = "block";
+        errorMessage.style.color = "red";
+        errorMessage.innerHTML = "Please enter a last name.";
+        return;
+    }
+
+    if(!taxId){
+        errorMessage.style.display = "block";
+        errorMessage.style.color = "red";
+        errorMessage.innerHTML = "Please enter a taxID number.";
+        return;
+    }
+
+
     try { 
         const res = await fetch(`${url}/register`, {
             method: "POST",
@@ -40,6 +76,8 @@ async function createUser () {
         console.error("Error: " + e);
         console.error("Error");
         errorMessage.style.display = "block";
+        errorMessage.style.color = "red";
+        errorMessage.innerText = "Error: username already exsists.";
     }
 
 }
