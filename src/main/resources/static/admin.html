@@ -40,11 +40,24 @@
 <br>
 <br>
 <!-- start account views -->
-<!-- <p id="errorMessage" style="color: red; display: none;">Error: Wrong username or password</p> -->
 <br>
 <button id="getAllAccountButton" type="submit" class="btn btn-primary">Get All Account</button>
 <button id="clearAllAccount" type="submit" class="btn btn-primary">Clear</button>
 <div id="seeAllAccount"></div>
+<br>
+<!-- start form -->
+<div class="d-flex justify-content-center">
+  <form id="searchByTaxForm" class="w-50 p-3">
+    <div class="mb-3">
+      <label for="inputTaxId" class="form-label">input Tax Id</label>
+      <input type="text" class="form-control" id="inputTaxId" placeholder="Tax ID">
+    </div>
+    <p id="errorMessage" style="color: red; display: none;">Error:</p>
+    <br>
+    <button id="searchByTaxButton" type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+<!-- end form -->
 <!-- end account views -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
