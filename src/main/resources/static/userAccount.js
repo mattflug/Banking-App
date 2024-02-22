@@ -3,6 +3,9 @@ let accounts = [];
 let accountContainer = document.getElementById("userContainer");
 console.log(accountContainer);
 
+const logoutButton = document.getElementById("logout");
+logoutButton.addEventListener('click', logoutFunction);
+
 function populateFlavors(accounts) {
   accountContainer.innerHTML = "";
 
@@ -34,12 +37,18 @@ function populateFlavors(accounts) {
 
 // Get to user accounts, need to edit this to take in the user who's
   // logged in
-(async () => {
+if (sessionStorage){
+  (async () => {
   let data = await fetch(`http://localhost:8080/users/${sessionStorage.getItem("id")}/accounts`);
   let res = await data.json(); // Different syntax, same thing as before
   console.log(res);
   accounts = res;
   populateFlavors(accounts);
 })();
+}else{
+  window.location.href = "login.html";
+}
 
-// sessionStorage.removeItem("id");
+function logoutFunction(){
+  sessionStorage.removeItem("id");
+}
