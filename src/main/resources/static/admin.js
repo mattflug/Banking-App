@@ -13,7 +13,7 @@ clearButton.addEventListener('click', clearAccountList);
 
 function clearAccountList() {
     let seeAllAccounts = document.getElementById("seeAllAccount");
-    return seeAllAccounts.innerHTML = "";
+    seeAllAccounts.innerHTML = "";
 }
 
 
