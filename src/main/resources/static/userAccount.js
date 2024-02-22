@@ -35,8 +35,8 @@ function populateFlavors(accounts) {
   }
 }
 
-// Get to user accounts, need to edit this to take in the user who's
-  // logged in
+
+//on load userAccount page for currently logged in user
 if (sessionStorage){
   (async () => {
   let data = await fetch(`http://localhost:8080/users/${sessionStorage.getItem("id")}/accounts`);
