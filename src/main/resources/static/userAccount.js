@@ -1,3 +1,5 @@
+const url = "http://localhost:8080";
+
 let accounts = [];
 
 let accountContainer = document.getElementById("userContainer");
@@ -12,10 +14,15 @@ function populateAccounts(accounts) {
   for (account of accounts) {
     let bryDiv = document.createElement("div");
 
+
     bryDiv.innerHTML = `
             <form>
+
+      bryDiv.innerHTML = `
+            <div>
+
             <div class="mb-3">
-            <h2 for="savingsAccount" class="form-label">${account.accountType} Account, ID: ${account.id}</h2>
+            <h2 for="savingsAccount" class="form-label">${account.accountType}</h2>
               <label for="savingsAccount" class="form-label">Account Balance:</label>
               <label for="savingsAccount" class="form-label">${account.currentBalance}</label>
             </div>
@@ -39,7 +46,7 @@ function populateAccounts(accounts) {
             <br>
             <br>
             <br>
-        </form>
+        </div>
             
         `;
     accountContainer.append(bryDiv);
@@ -50,6 +57,7 @@ function populateAccounts(accounts) {
 // logged in
 if (sessionStorage) {
   (async () => {
+
     let data = await fetch(
       `http://localhost:8080/users/${sessionStorage.getItem("id")}/accounts`
     );
@@ -59,6 +67,15 @@ if (sessionStorage) {
     populateAccounts(accounts);
   })();
 } else {
+
+  let data = await fetch(`http://localhost:8080/users/${sessionStorage.getItem("id")}/accounts`);
+  let res = await data.json(); // Different syntax, same thing as before
+  console.log(res);
+  accounts = res;
+  populateFlavors(accounts);
+})();
+}else{
+
   window.location.href = "login.html";
 }
 
