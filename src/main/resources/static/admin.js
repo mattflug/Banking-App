@@ -8,6 +8,13 @@ const url = "http://localhost:8080";
 
 const button = document.getElementById("getAllAccountButton");
 button.addEventListener('click', getAllAccount);
+const clearButton = document.getElementById("clearAllAccount");
+clearButton.addEventListener('click', clearAccountList);
+
+function clearAccountList() {
+    let seeAllAccounts = document.getElementById("seeAllAccount");
+    return seeAllAccounts.innerHTML = "";
+}
 
 
 async function getAllAccount () {
