@@ -139,15 +139,12 @@ async function createBankAccount () {
         const accounts = await res.json();
         console.log(accounts);
         let stringAccounts = JSON.stringify(accounts);
-        // seeTaxAccounts.innerHTML = "";
-        // seeTaxAccounts.innerHTML = stringAccounts;
 
         userErrorMessage.style.display = "none";
         
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error!");
-        // seeTaxAccounts.innerHTML = "";
         userErrorMessage.style.display = "block";
         userErrorMessage.innerHTML = "User does not exists";
     }
@@ -157,53 +154,31 @@ async function createBankAccount () {
 // DELETE Bank Account for User function
 async function deleteBankAccount () {
   
-    let accountType = document.getElementById("accountType").value;
-    let accountBalance = document.getElementById("accountBalance").value;
     let userErrorMessage = document.getElementById("userErrorMessage");
-    let userId = document.getElementById("inputUserId").value;
+    let accountId = document.getElementById("inputBankAccountId").value;
 
-    if(!userId){
+    if(!accountId){
         userErrorMessage.style.display = "block";
-        userErrorMessage.innerHTML = "Please enter a User ID.";
-        return;
-    }
-
-    if(!accountType){
-        userErrorMessage.style.display = "block";
-        userErrorMessage.innerHTML = "Please enter a Account Type.";
-        console.log(accountType);
-        return;
-    }
-
-    if(!accountBalance){
-        userErrorMessage.style.display = "block";
-        userErrorMessage.innerHTML = "Please enter a Account Balance.";
+        userErrorMessage.innerHTML = "Please enter a bank account ID.";
         return;
     }
 
     try { 
         const res = await fetch(`${url}/accounts/${userId}`, {
-            method: "POST",
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                accountType: accountType,
-                currentBalance: accountBalance
-            })
+            }
         })
         const accounts = await res.json();
         console.log(accounts);
         let stringAccounts = JSON.stringify(accounts);
-        // seeTaxAccounts.innerHTML = "";
-        // seeTaxAccounts.innerHTML = stringAccounts;
 
         userErrorMessage.style.display = "none";
         
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error!");
-        // seeTaxAccounts.innerHTML = "";
         userErrorMessage.style.display = "block";
         userErrorMessage.innerHTML = "User does not exists";
     }
