@@ -80,10 +80,18 @@ function populateAccounts(accounts) {
         </div>
         <div class="row mb-2">
           <div class="col-md-12">
+
+          <div class="mb-3">
+          <input type="number" class="form-control" id="input-${account.id}" placeholder=" withdraw/deposit amount">
+          </div>
+
             <div class="d-grid gap-2 d-md-block">
-              <button type="submit" class="btn btn-sm btn-primary" id="withdraw">Withdraw</button>
-              <button type="submit" class="btn btn-sm btn-primary" id="deposit">Deposit</button>
+              <button type="submit" class="btn btn-sm btn-primary" onclick="withdraw(${account.id})">Withdraw</button>
+              <button type="submit" class="btn btn-sm btn-primary" onclick="deposit(${account.id})">Deposit</button>
             </div>
+            <br>
+            <p id="ErrorMessage-${account.id}" style="color: red; display: none;">Error:</p>
+            <br>
           </div>
         </div>
         <div class="mb-3">
@@ -117,10 +125,6 @@ function bindAccounts(accounts) {
 }
 
 //on load userAccount page for currently logged in user
-// if (sessionStorage){
-// }
-// Get to user accounts, need to edit this to take in the user who's
-// logged in
 if (sessionStorage) {
   (async () => {
     let data = await fetch(
