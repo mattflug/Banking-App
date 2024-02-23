@@ -6,12 +6,19 @@ let transactions = [];
 let transactionContainer = document.getElementById("transactionContainer");
 
 function populateTransactions(transactions) {
+    let amount = "";
   for (let transaction of transactions) {
+
+    if (transaction.transactionType === "WITHDRAWAL" | transaction.transactionType === "TRANSFER_OUTGOING") {
+        amount = ` - ${transaction.amount}`; 
+    } else if (transaction.transactionType === "DEPOSIT" | transaction.transactionType === "TRANSFER_INCOMING") {
+        amount = ` + ${transaction.amount}`;
+    }
     let tableRows = document.createElement("tr");
     tableRows.innerHTML = `
         <td>${transaction.date}</td>
         <td>${transaction.transactionType}</td>
-        <td>${transaction.amount}</td>
+        <td>${amount}</td>
         <td>${transaction.balance}</td>`;
     transactionContainer.append(tableRows);
   }

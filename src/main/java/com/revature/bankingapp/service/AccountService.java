@@ -106,9 +106,9 @@ public class AccountService {
         accountRepository.save(toAccount);
 
         transactionService.createTransaction(fromAccount, amount,
-                Transaction.TransactionType.TRANSFER, reducedBalance);
+                Transaction.TransactionType.TRANSFER_OUTGOING, reducedBalance);
         transactionService.createTransaction(toAccount, amount,
-                Transaction.TransactionType.TRANSFER, increasedBalance);
+                Transaction.TransactionType.TRANSFER_INCOMING, increasedBalance);
 
     }
 
