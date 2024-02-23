@@ -8,45 +8,6 @@ console.log(accountContainer);
 const logoutButton = document.getElementById("logout");
 logoutButton.addEventListener("click", logoutFunction);
 
-// transfer function
-async function transfer(fromAccountId, toAccountId) {
-  let amount = document.getElementById(`amountInput-${fromAccountId}`).value;
-  let amountErrorMessage = document.getElementById(
-    `amountInputErrorMessage-${fromAccountId}`
-  );
-
-  // Validate amount input
-  if (!amount) {
-    amountErrorMessage.style.display = "block";
-    amountErrorMessage.innerHTML = "Please enter a valid amount";
-    return;
-  }
-
-  try {
-    const res = await fetch(`${url}/accounts/${fromAccountId}/transfer`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        toAccountId,
-        amount,
-      }),
-    });
-    const response = await res.json();
-    console.log(response);
-    let jsonResponse = JSON.stringify(response);
-    console.log(jsonResponse);
-    amountErrorMessage.style.display = "none";
-    window.location.href = "userAccount.html";
-  } catch (e) {
-    console.log(e);
-    amountErrorMessage.style.display = "block";
-    amountErrorMessage.innerHTML = "Insufficient funds";
-    return;
-  }
-}
-
 function populateAccounts(accounts) {
   accountContainer.innerHTML = "";
 
@@ -80,7 +41,7 @@ function populateAccounts(accounts) {
                   .filter((a) => a.id !== account.id)
                   .map(
                     (a) =>
-                      `<button class="dropdown-item" type="button" id="${account.id}-${a.id}">${a.accountType} ${a.id}</button>`
+                      `<button class="dropdown-item" type="submit" onclick="transfer(${account.id}, ${a.id})">${a.accountType} ${a.id}</button>`
                   )}
               </ul>
             </div>
@@ -93,15 +54,23 @@ function populateAccounts(accounts) {
           <div class="col-md-12">
 
           <div class="mb-3">
-          <input type="number" class="form-control" id="input-${account.id}" placeholder=" withdraw/deposit amount">
+          <input type="number" class="form-control" id="input-${
+            account.id
+          }" placeholder=" withdraw/deposit amount">
           </div>
 
             <div class="d-grid gap-2 d-md-block">
-              <button type="submit" class="btn btn-sm btn-primary" onclick="withdraw(${account.id})">Withdraw</button>
-              <button type="submit" class="btn btn-sm btn-primary" onclick="deposit(${account.id})">Deposit</button>
+              <button type="submit" class="btn btn-sm btn-primary" onclick="withdraw(${
+                account.id
+              })">Withdraw</button>
+              <button type="submit" class="btn btn-sm btn-primary" onclick="deposit(${
+                account.id
+              })">Deposit</button>
             </div>
             <br>
-            <p id="ErrorMessage-${account.id}" style="color: red; display: none;">Error:</p>
+            <p id="ErrorMessage-${
+              account.id
+            }" style="color: red; display: none;">Error:</p>
             <br>
           </div>
         </div>
@@ -117,22 +86,6 @@ function populateAccounts(accounts) {
         `;
     accountContainer.append(bryDiv);
   }
-  bindAccounts(accounts);
-}
-
-function bindAccounts(accounts) {
-  accounts.forEach((account) => {
-    const otherAccounts = accounts.filter((a) => a.id !== account.id);
-    otherAccounts.forEach((otherAccount) => {
-      const transferButton = document.getElementById(
-        `${account.id}-${otherAccount.id}`
-      );
-      transferButton.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await transfer(account.id, otherAccount.id);
-      });
-    });
-  });
 }
 
 //on load userAccount page for currently logged in user
@@ -152,6 +105,46 @@ if (sessionStorage) {
 
 function logoutFunction() {
   sessionStorage.removeItem("id");
+}
+
+// Transfer function
+async function transfer(fromAccountId, toAccountId) {
+  let amount = document.getElementById(`amountInput-${fromAccountId}`).value;
+  let amountErrorMessage = document.getElementById(
+    `amountInputErrorMessage-${fromAccountId}`
+  );
+
+  // Validate amount input
+  if (!amount) {
+    amountErrorMessage.style.display = "block";
+    amountErrorMessage.innerHTML = "Please enter a valid amount";
+    return;
+  }
+
+  try {
+    const res = await fetch(`${url}/accounts/${fromAccountId}/transfer`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        toAccountId,
+        amount,
+      }),
+    });
+    console.log("Res", res);
+    const response = await res.json();
+    console.log(response);
+    let jsonResponse = JSON.stringify(response);
+    console.log(jsonResponse);
+    amountErrorMessage.style.display = "none";
+    window.location.href = "userAccount.html";
+  } catch (e) {
+    console.log(e);
+    amountErrorMessage.style.display = "block";
+    amountErrorMessage.innerHTML = "Insufficient funds";
+    return;
+  }
 }
 
 // Withdraw function
