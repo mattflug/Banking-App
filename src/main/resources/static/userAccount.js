@@ -35,13 +35,18 @@ function populateAccounts(accounts) {
                 Transfer To
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+   ${accounts
+     .filter((a) => a.id !== account.id)
+     .map(
+       (a) =>
+         `<button class="dropdown-item" type="button">${a.accountType} ${a.id}</button>`
+     )}
             </div>
         </div>
         <div class = "mt-5">
-        <a href="userTransactions.html?accountId=${account.id}" class="text-decoration-none">
+        <a href="userTransactions.html?accountId=${
+          account.id
+        }" class="text-decoration-none">
             View Transactions
         </a>
         </div>
