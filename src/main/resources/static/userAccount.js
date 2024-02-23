@@ -10,8 +10,10 @@ logoutButton.addEventListener("click", logoutFunction);
 
 // transfer function
 async function transfer(fromAccountId, toAccountId) {
-  let amount = document.getElementById("amountInput").value;
-  let amountErrorMessage = document.getElementById("amountInputErrorMessage");
+  let amount = document.getElementById(`amountInput-${fromAccountId}`).value;
+  let amountErrorMessage = document.getElementById(
+    `amountInputErrorMessage-${fromAccountId}`
+  );
 
   // Validate amount input
   if (!amount) {
@@ -31,11 +33,16 @@ async function transfer(fromAccountId, toAccountId) {
         amount,
       }),
     });
+    const response = await res.json();
+    console.log(response);
+    let jsonResponse = JSON.stringify(response);
+    console.log(jsonResponse);
+    amountErrorMessage.style.display = "none";
+    window.location.href = "userAccount.html";
   } catch (e) {
-    console.error("Error: " + e);
-    console.error("Error!");
+    console.log(e);
     amountErrorMessage.style.display = "block";
-    amountErrorMessage.innerHTML = e.message;
+    amountErrorMessage.innerHTML = "Insufficient funds";
     return;
   }
 }
@@ -60,7 +67,9 @@ function populateAccounts(accounts) {
         <div class="row mb-2">
           <div class="col-md-12">
             <div class="input-group">
-              <input type="number" class="form-control" id="amountInput" placeholder="Transfer Amount...">
+              <input type="number" class="form-control" id="amountInput-${
+                account.id
+              }" placeholder="Transfer Amount...">
               <button class="btn btn-outline-secondary dropdown-toggle" id="${
                 account.id
               }-transfer" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 18px;"></button>
@@ -75,7 +84,9 @@ function populateAccounts(accounts) {
                   )}
               </ul>
             </div>
-            <div class="form-text text-danger small mb-2" id="amountInputErrorMessage"></div>
+            <div class="form-text text-danger small mb-2" id="amountInputErrorMessage-${
+              account.id
+            }"></div>
           </div>
         </div>
         <div class="row mb-2">
@@ -108,9 +119,9 @@ function bindAccounts(accounts) {
       const transferButton = document.getElementById(
         `${account.id}-${otherAccount.id}`
       );
-      transferButton.addEventListener("click", (e) => {
+      transferButton.addEventListener("click", async (e) => {
         e.preventDefault();
-        transfer(account.id, otherAccount.id);
+        await transfer(account.id, otherAccount.id);
       });
     });
   });
