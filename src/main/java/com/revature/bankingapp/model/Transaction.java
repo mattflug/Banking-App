@@ -18,7 +18,7 @@ public class Transaction {
 
 
     public enum TransactionType {
-        DEPOSIT, WITHDRAWAL, TRANSFER
+        DEPOSIT, WITHDRAWAL, TRANSFER_OUTGOING, TRANSFER_INCOMING
     }
 
     @Enumerated(EnumType.STRING)

@@ -26,7 +26,7 @@ public class TransactionService {
     public List<Transaction> getAllAccountTransactions(Integer accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("Account not found"));
-        return transactionRepository.findAllByAccount(account);
+        return transactionRepository.findAllByAccountOrderByDateDesc(account);
 
     }
 

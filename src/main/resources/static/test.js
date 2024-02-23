@@ -6,7 +6,7 @@ let accountContainer = document.getElementById("userContainer");
 console.log(accountContainer);
 
 const logoutButton = document.getElementById("logout");
-logoutButton.addEventListener("click", logoutFunction);
+logoutButton.addEventListener('click', logoutFunction);
 
 function populateAccounts(accounts) {
   accountContainer.innerHTML = "";
@@ -14,39 +14,27 @@ function populateAccounts(accounts) {
   for (account of accounts) {
     let bryDiv = document.createElement("div");
 
-    bryDiv.innerHTML = `
-    <div>
-    <div class="card p-5 mb-5">
-        <h2>${account.accountType}</h2>
-        <div>
-            <label class="form-label">Account Balance:</label>
-            <span class="form-label">${account.currentBalance}</span>
-        </div>
-        <div class="mb-3">
-            <input type="number" class="form-control" id="amountInput" placeholder="Please input amount in $">
-        </div>
-        <div class = "w-50">
-        <button type="submit" class="btn btn-primary mb-2" id="withdraw">Withdraw</button>
-        <button type="submit" class="btn btn-primary" id="deposit">Deposit</button>
-        <div>
-        <br><br>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Transfer To
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+      bryDiv.innerHTML = `
+            <div>
+            <div class="mb-3">
+            <h2 for="savingsAccount" class="form-label">${account.accountType} Account, ID: ${account.id}</h2>
+              <label for="savingsAccount" class="form-label">Account Balance:</label>
+              <label for="savingsAccount" class="form-label">${account.currentBalance}</label>
             </div>
+            <div class="mb-3">
+              <input type="number" class="form-control" id="input-${account.id}" placeholder="please input amount in $">
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="withdraw(${account.id})">Withdraw</button>
+            <button type="submit" class="btn btn-primary" onclick="deposit(${account.id})">Deposit</button>
+            <br>
+            <p id="ErrorMessage-${account.id}" style="color: red; display: none;">Error:</p>
+            <br>
+
+            <br>
+            <br>
+            <br>
         </div>
-        <div class = "mt-5">
-        <a href="userTransactions.html?accountId=${account.id}" class="text-decoration-none">
-            View Transactions
-        </a>
-        </div>
-    </div>
-</div> 
+            
         `;
     accountContainer.append(bryDiv);
   }
@@ -54,27 +42,19 @@ function populateAccounts(accounts) {
 
 
 //on load userAccount page for currently logged in user
-// if (sessionStorage){
-// }
-// Get to user accounts, need to edit this to take in the user who's
-// logged in
-if (sessionStorage) {
+if (sessionStorage){
   (async () => {
-
-    let data = await fetch(
-      `http://localhost:8080/users/${sessionStorage.getItem("id")}/accounts`
-    );
-    let res = await data.json(); // Different syntax, same thing as before
-    console.log(res);
-    accounts = res;
-    populateAccounts(accounts);
-  })();
-} else {
-
+  let data = await fetch(`http://localhost:8080/users/${sessionStorage.getItem("id")}/accounts`);
+  let res = await data.json(); // Different syntax, same thing as before
+  console.log(res);
+  accounts = res;
+  populateAccounts(accounts);
+})();
+}else{
   window.location.href = "login.html";
 }
 
-function logoutFunction() {
+function logoutFunction(){
   sessionStorage.removeItem("id");
 }
 
@@ -163,4 +143,5 @@ async function deposit (id) {
       errorMessage.style.display = "block";
       errorMessage.innerHTML = "Insufficient funds";
   }
+
 }

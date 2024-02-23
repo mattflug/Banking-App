@@ -14,11 +14,11 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface TransactionRepository  extends JpaRepository<Transaction, Integer> {
 
-    List<Transaction> findAllByAccount(Account account);
+    List<Transaction> findAllByAccountOrderByDateDesc(Account account);
 
     List<Transaction> findByAccount(Account account);
 
-    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN :fromDate AND :toDate")
+    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN :fromDate AND :toDate ORDER BY t.date DESC")
     List<Transaction> findByAccountIdAndDateBetween(
             @Param("accountId") Integer accountId,
             @Param("fromDate") LocalDateTime fromDate,
