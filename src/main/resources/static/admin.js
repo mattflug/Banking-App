@@ -136,9 +136,9 @@ async function createBankAccount () {
                 currentBalance: accountBalance
             })
         })
-        const accounts = await res.json();
-        console.log(accounts);
+        const accounts = await res.json();;
         let stringAccounts = JSON.stringify(accounts);
+        console.log(stringAccounts);
 
         userErrorMessage.style.display = "none";
         
@@ -154,12 +154,12 @@ async function createBankAccount () {
 // DELETE Bank Account for User function
 async function deleteBankAccount () {
   
-    let userErrorMessage = document.getElementById("userErrorMessage");
+    let bankAccountErrorMessage = document.getElementById("bankAccountErrorMessage");
     let accountId = document.getElementById("inputBankAccountId").value;
 
     if(!accountId){
-        userErrorMessage.style.display = "block";
-        userErrorMessage.innerHTML = "Please enter a bank account ID.";
+        bankAccountErrorMessage.style.display = "block";
+        bankAccountErrorMessage.innerHTML = "Please enter a bank account ID.";
         return;
     }
 
@@ -173,14 +173,15 @@ async function deleteBankAccount () {
         const accounts = await res.json();
         console.log(accounts);
         let stringAccounts = JSON.stringify(accounts);
+        console.log(stringAccounts);
 
-        userErrorMessage.style.display = "none";
+        bankAccountErrorMessage.style.display = "none";
         
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error!");
-        userErrorMessage.style.display = "block";
-        userErrorMessage.innerHTML = "User does not exists";
+        bankAccountErrorMessage.style.display = "block";
+        bankAccountErrorMessage.innerHTML = "Error: account not found or account is not at $0.";
     }
 
 }
