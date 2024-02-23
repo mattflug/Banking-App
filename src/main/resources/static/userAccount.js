@@ -142,7 +142,7 @@ async function transfer(fromAccountId, toAccountId) {
   } catch (e) {
     console.log(e);
     amountErrorMessage.style.display = "block";
-    amountErrorMessage.innerHTML = "Insufficient funds";
+    amountErrorMessage.innerHTML = "";
     return;
   }
 }
