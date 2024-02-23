@@ -15,9 +15,13 @@ function populateAccounts(accounts) {
     bryDiv.innerHTML = `
             <form>
             <div class="mb-3">
-            <h2 for="savingsAccount" class="form-label">${account.accountType} Account, ID: ${account.id}</h2>
+            <h2 for="savingsAccount" class="form-label">${
+              account.accountType
+            } Account, ID: ${account.id}</h2>
               <label for="savingsAccount" class="form-label">Account Balance:</label>
-              <label for="savingsAccount" class="form-label">${account.currentBalance}</label>
+              <label for="savingsAccount" class="form-label">${
+                account.currentBalance
+              }</label>
             </div>
             <div class="mb-3">
               <input type="number" class="form-control" id="account" placeholder="please input amount in $">
@@ -31,9 +35,12 @@ function populateAccounts(accounts) {
     Transfer To
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
+    ${accounts
+      .filter((a) => a.id !== account.id)
+      .map(
+        (a) =>
+          `<button class="dropdown-item" type="button">${a.accountType} ${a.id}</button>`
+      )}
   </div>
 </div>
             <br>
