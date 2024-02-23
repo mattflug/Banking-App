@@ -20,8 +20,6 @@ async function transfer(fromAccountId, toAccountId) {
     return;
   }
 
-  // Need to validate ac
-
   try {
     const res = await fetch(`${url}/accounts/${fromAccountId}/transfer`, {
       method: "PUT",
@@ -36,6 +34,9 @@ async function transfer(fromAccountId, toAccountId) {
   } catch (e) {
     console.error("Error: " + e);
     console.error("Error!");
+    amountErrorMessage.style.display = "block";
+    amountErrorMessage.innerHTML = e.message;
+    return;
   }
 }
 
@@ -47,7 +48,7 @@ function populateAccounts(accounts) {
 
     bryDiv.innerHTML = `
     <div class="container container-fluid">
-      <div class="card px-5 pt-3 pb-5 mb-5">
+      <div class="card px-3 pt-3 pb-5 mb-5">
         <h5>${account.accountType}: ${account.id}</h5>
         <div class="row mb-3">
           <div class="col-md-12">
@@ -56,35 +57,33 @@ function populateAccounts(accounts) {
             }</label>
           </div>
         </div>
-        <div class="row mb-3">
+        <div class="row mb-2">
           <div class="col-md-12">
-            <input type="number" class="form-control form-control-sm" id="amountInput" placeholder="Please input amount in $">
-            <p id="amountInputErrorMessage" style="color: red; display: none;"></p>
+            <div class="input-group">
+              <input type="number" class="form-control" id="amountInput" placeholder="Transfer Amount...">
+              <button class="btn btn-outline-secondary dropdown-toggle" id="${
+                account.id
+              }-transfer" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 18px;"></button>
+              <ul class="dropdown-menu" aria-labelledby="${
+                account.id
+              }-transfer">
+                ${accounts
+                  .filter((a) => a.id !== account.id)
+                  .map(
+                    (a) =>
+                      `<button class="dropdown-item" type="button" id="${account.id}-${a.id}">${a.accountType} ${a.id}</button>`
+                  )}
+              </ul>
+            </div>
+            <div class="form-text text-danger small mb-2" id="amountInputErrorMessage"></div>
           </div>
         </div>
-        <div class="row mb-1">
+        <div class="row mb-2">
           <div class="col-md-12">
             <div class="d-grid gap-2 d-md-block">
               <button type="submit" class="btn btn-sm btn-primary" id="withdraw">Withdraw</button>
               <button type="submit" class="btn btn-sm btn-primary" id="deposit">Deposit</button>
             </div>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-12">
-            <div class="dropdown">
-              <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Transfer To
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                ${accounts
-                  .filter((a) => a.id !== account.id)
-                  .map(
-                    (a) =>
-                      `<button class="dropdown-item" type="button" id="${a.id}">${a.accountType} ${a.id}</button>`
-                  )}
-              </div>
-           </div>
           </div>
         </div>
         <div class="mb-3">
@@ -99,6 +98,22 @@ function populateAccounts(accounts) {
         `;
     accountContainer.append(bryDiv);
   }
+  bindAccounts(accounts);
+}
+
+function bindAccounts(accounts) {
+  accounts.forEach((account) => {
+    const otherAccounts = accounts.filter((a) => a.id !== account.id);
+    otherAccounts.forEach((otherAccount) => {
+      const transferButton = document.getElementById(
+        `${account.id}-${otherAccount.id}`
+      );
+      transferButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        transfer(account.id, otherAccount.id);
+      });
+    });
+  });
 }
 
 //on load userAccount page for currently logged in user
