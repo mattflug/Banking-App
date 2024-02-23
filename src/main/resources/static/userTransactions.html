@@ -20,9 +20,6 @@
                 <a class="nav-link" aria-current="page" href="userAccount.html#">Accounts</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="userTransactions.html#">Transactions</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="admin.html">Admin</a>
               </li>
               <li class="nav-item">
@@ -51,13 +48,13 @@
       <caption><strong>Filter Transactions By Date</strong></caption>
       <div class="row">
         <div class="col">
-          <input type="date" class="form-control" placeholder="From Date">
+          <input id="fromDate" type="date" class="form-control" placeholder="From Date">
         </div>
         <div class="col">
-          <input type="date" class="form-control" placeholder="To Date">
+          <input id="toDate" type="date" class="form-control" placeholder="To Date">
         </div>
         <div class="col">
-          <button type="submit" class="btn btn-primary mb-2">Search</button>
+          <button id="search" type="submit" class="btn btn-primary mb-2">Search</button>
         </div>
       </div>
     </form>
@@ -71,7 +68,7 @@
                 <th scope="col">Balance</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="transactionBody">
 
             </tbody>
             

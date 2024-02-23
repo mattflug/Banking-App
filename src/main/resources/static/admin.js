@@ -98,10 +98,9 @@ async function searchByTaxId () {
 
 }
 
-// Create Bank Account for User function
+// CREATE Bank Account for User function
 async function createBankAccount () {
   
-    // let seeTaxAccounts = document.getElementById("seeTaxAccount");
     let accountType = document.getElementById("accountType").value;
     let accountBalance = document.getElementById("accountBalance").value;
     let userErrorMessage = document.getElementById("userErrorMessage");
@@ -137,20 +136,52 @@ async function createBankAccount () {
                 currentBalance: accountBalance
             })
         })
-        const accounts = await res.json();
-        console.log(accounts);
+        const accounts = await res.json();;
         let stringAccounts = JSON.stringify(accounts);
-        // seeTaxAccounts.innerHTML = "";
-        // seeTaxAccounts.innerHTML = stringAccounts;
+        console.log(stringAccounts);
 
         userErrorMessage.style.display = "none";
         
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error!");
-        // seeTaxAccounts.innerHTML = "";
         userErrorMessage.style.display = "block";
         userErrorMessage.innerHTML = "User does not exists";
+    }
+
+}
+
+// DELETE Bank Account for User function
+async function deleteBankAccount () {
+  
+    let bankAccountErrorMessage = document.getElementById("bankAccountErrorMessage");
+    let accountId = document.getElementById("inputBankAccountId").value;
+
+    if(!accountId){
+        bankAccountErrorMessage.style.display = "block";
+        bankAccountErrorMessage.innerHTML = "Please enter a bank account ID.";
+        return;
+    }
+
+    try { 
+        const res = await fetch(`${url}/accounts/${userId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        const accounts = await res.json();
+        console.log(accounts);
+        let stringAccounts = JSON.stringify(accounts);
+        console.log(stringAccounts);
+
+        bankAccountErrorMessage.style.display = "none";
+        
+    } catch (e) {
+        console.error("Error: " + e);
+        console.error("Error!");
+        bankAccountErrorMessage.style.display = "block";
+        bankAccountErrorMessage.innerHTML = "Error: account not found or account is not at $0.";
     }
 
 }
