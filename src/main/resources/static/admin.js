@@ -21,11 +21,18 @@ taxForm.addEventListener('submit', (e)=>{
     searchByTaxId();
 })
 
-// Create Bank Account for User form
-const bankAccountForm = document.getElementById("createBankAccountForm");
-bankAccountForm.addEventListener('submit', (e)=>{
+// CREATE Bank Account for User form
+const createBankAccountForm = document.getElementById("createBankAccountForm");
+createBankAccountForm.addEventListener('submit', (e)=>{
     e.preventDefault();
     createBankAccount();
+})
+
+// DELETE Bank Account for User form
+const deleteBankAccountForm = document.getElementById("deleteBankAccountForm");
+deleteBankAccountForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    deleteBankAccount();
 })
 
 
@@ -121,6 +128,7 @@ async function createBankAccount () {
 
     if(!accountBalance){
         userErrorMessage.style.display = "block";
+        userErrorMessage.style.color = "red";
         userErrorMessage.innerHTML = "Please enter a Account Balance.";
         return;
     }
@@ -140,12 +148,15 @@ async function createBankAccount () {
         let stringAccounts = JSON.stringify(accounts);
         console.log(stringAccounts);
 
-        userErrorMessage.style.display = "none";
+        userErrorMessage.style.display = "block";
+        userErrorMessage.style.color = "green";
+        userErrorMessage.innerHTML = "New Banking Account Created!";
         
     } catch (e) {
         console.error("Error: " + e);
         console.error("Error!");
         userErrorMessage.style.display = "block";
+        userErrorMessage.style.color = "red";
         userErrorMessage.innerHTML = "User does not exists";
     }
 
@@ -159,28 +170,34 @@ async function deleteBankAccount () {
 
     if(!accountId){
         bankAccountErrorMessage.style.display = "block";
+        bankAccountErrorMessage.style.color = "green";
         bankAccountErrorMessage.innerHTML = "Please enter a bank account ID.";
         return;
     }
 
     try { 
-        const res = await fetch(`${url}/accounts/${userId}`, {
+        const res = await fetch(`${url}/accounts/${accountId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             }
         })
+        
         const accounts = await res.json();
         console.log(accounts);
         let stringAccounts = JSON.stringify(accounts);
         console.log(stringAccounts);
 
-        bankAccountErrorMessage.style.display = "none";
+        bankAccountErrorMessage.style.display = "block";
+        bankAccountErrorMessage.style.color = "green";
+        bankAccountErrorMessage.innerHTML = "Banking Account Delete!";
         
     } catch (e) {
+        console.log(e.message);
         console.error("Error: " + e);
         console.error("Error!");
         bankAccountErrorMessage.style.display = "block";
+        bankAccountErrorMessage.style.color = "red";
         bankAccountErrorMessage.innerHTML = "Error: account not found or account is not at $0.";
     }
 
